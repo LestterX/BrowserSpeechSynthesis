@@ -47,6 +47,7 @@ main {
     .secUserInput {
         flex-direction: column;
         height: 120px;
+        width: 100vw;
     }
 
     .userInput,
