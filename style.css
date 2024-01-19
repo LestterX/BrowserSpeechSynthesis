@@ -6,10 +6,20 @@
 
 main {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100vw;
     height: 100vh;
+}
+
+main .images>img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 60px;
+    animation-name: easeinEaseout;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
 }
 
 .secUserInput {
@@ -43,6 +53,26 @@ main {
     cursor: pointer;
 }
 
+@keyframes easeinEaseout {
+    0% {
+        transform: scale(1.0);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1.0);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    main .images>img {
+        width: 150px;
+    }
+}
+
 @media screen and (max-width: 480px) {
     .secUserInput {
         flex-direction: column;
@@ -54,5 +84,11 @@ main {
     .bntSpeak,
     .width {
         width: 100vw;
+    }
+}
+
+@media screen and (max-width: 305px) {
+    main .images>img {
+        width: 100px;
     }
 }

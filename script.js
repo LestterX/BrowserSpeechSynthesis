@@ -8,7 +8,7 @@ const speak = () => {
     let voices = synth.getVoices();
     let msg = new SpeechSynthesisUtterance()
     msg.rate = 1;
-    msg.pitch = 2.5;
+    msg.pitch = 1;
     msg.text = userInputMsg
     if (String(userInputMsg).length < 1) msg.text = 'Por favor, digite a mensagem!'
     msg.lang = language
