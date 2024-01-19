@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.secUserInput {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+}
+
+.userInput {
+    flex: 4;
+    height: 64px;
+    border-radius: 10px;
+    font-size: 28px;
+}
+.userInput::placeholder {
+    font-size: 28px;
+}
+
+.bntSpeak {
+    flex: 1;
+    font-size: 28px;
+    font-weight: 400;
+    border-radius: 10px;
+}
+
+.bntSpeak:hover {
+    cursor: pointer;
+}
