@@ -1,6 +1,7 @@
 const userInput = document.querySelector('.userInput');
 const bntSpeak = document.querySelector('.bntSpeak');
 const synth = window.speechSynthesis;
+const language = 'pt-BR'
 
 const speak = () => {
     let userInputMsg = userInput.value
@@ -10,7 +11,7 @@ const speak = () => {
     msg.pitch = 10;
     msg.text = userInputMsg
     if (String(userInputMsg).length < 1) msg.text = 'Por favor, digite a mensagem!'
-    msg.lang = 'pt-BR'
+    msg.lang = language
     if (voices.length > 1) {
         msg.voice = voices[1]
         synth.speak(msg)
