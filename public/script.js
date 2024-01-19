@@ -47,10 +47,11 @@ const genDialog = (userInputMsgSocket, socketId, userOwn) => {
     main.appendChild(dialogDiv)
 
     setTimeout(() => {
-        console.log('Timed out');
         if (dialogDiv.classList.contains(`${socketId}`)) dialogDiv.style.display = 'none'
-    }, 5000)
+    }, 8000)
 
+
+    userInput.value = ''
 }
 
 socket.on('bntFalarPress', (userInputMsgSocket, socketId) => {
@@ -60,3 +61,4 @@ socket.on('bntFalarPress', (userInputMsgSocket, socketId) => {
 
 bntSpeak.addEventListener('click', () => { speak(); genDialog(userInput.value, 'Você', true) });
 userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { speak(); genDialog(userInput.value, 'Você', true) } });
+document.addEventListener('keypress', (e) => { if (e.key === '\x1C' || (e.code === 'IntlBackslash' && e.ctrlKey === true)) { synth.cancel() } })

@@ -18,7 +18,7 @@ main {
 }
 
 main .images>img {
-    width: 300px;
+    width: 250px;
     height: auto;
     margin-bottom: 60px;
     animation-name: easeinEaseout;
@@ -57,6 +57,25 @@ main .images>img {
     cursor: pointer;
 }
 
+.guide {
+    width: 80%;
+    text-align: left;
+    margin-top: 20px;
+    font-size: 1.3rem;
+}
+
+.guide>article {
+    text-align: center;
+    margin-top: 20px;
+}
+.guide>p>span{
+    font-size: 1rem;
+}
+
+.guide>article>p>span {
+    color: red;
+}
+
 .dialogDiv {
     display: block;
     position: absolute;
@@ -70,7 +89,7 @@ main .images>img {
     border-radius: 5px;
     text-align: center;
     animation-name: slideUp;
-    animation-duration: 5s;
+    animation-duration: 8s;
     overflow: hidden;
 }
 
