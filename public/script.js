@@ -52,23 +52,23 @@ const genDialog = (userInputMsgSocket, socketId, userOwn) => {
         if (dialogDiv.classList.contains(`${socketId}`)) dialogDiv.style.display = 'none'
     }, 8000)
 
-
-    userInput.value = ''
 }
 
 socket.on('bntFalarPress', (userInputMsgSocket, socketId) => {
     genDialog(userInputMsgSocket, socketId)
 })
 
-const setToSessionStorageAndFocusInput = (input) => {
-    if (userName.value !== '' && String(userName.value).trim().length > 0) { sessionStorage.setItem('userName', userName.value); input.focus(); }
+const setToSessionStorage = () => {
+    if (userName.value !== '' && String(userName.value).trim().length > 0) { sessionStorage.setItem('userName', userName.value); }
 }
 
 bntSpeak.addEventListener('click', () => {
     if (userName.value !== '' && String(userName.value).trim().length > 0) {
+        userInput.focus();
         speak();
         genDialog(userInput.value, 'Você', true)
-        etToSessionStorageAndFocusInput(userInput)
+        setToSessionStorage()
+        userInput.value = ''
     } else {
         speak('Preencha seu nome primeiro', false)
     }
@@ -78,14 +78,15 @@ userInput.addEventListener('keypress', (e) => {
     if (userName.value !== '' && String(userName.value).trim().length > 0) {
         if (e.key === 'Enter') {
             userInput.focus();
-            setToSessionStorageAndFocusInput(userInput)
             speak();
             genDialog(userInput.value, 'Você', true)
+            setToSessionStorage()
+            userInput.value = ''
         }
     } else {
         speak('Preencha seu nome primeiro', false)
     }
 });
 
-userName.addEventListener('keypress', (e) => { if (e.key === 'Enter') { setToSessionStorageAndFocusInput(userInput) } })
+userName.addEventListener('keypress', (e) => { if (e.key === 'Enter') { setToSessionStorage(userInput); userInput.focus(); } })
 document.addEventListener('keypress', (e) => { if (e.key === '\x1C' || (e.code === 'IntlBackslash' && e.ctrlKey === true)) { synth.cancel() } })
