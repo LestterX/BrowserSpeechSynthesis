@@ -2,13 +2,15 @@ import { io } from 'https://cdn.socket.io/4.7.4/socket.io.esm.min.js'
 const socket = io()
 
 const userInput = document.querySelector('.userInput');
+const userName = document.querySelector('.userName');
 const bntSpeak = document.querySelector('.bntSpeak');
 const synth = window.speechSynthesis;
 const language = 'pt-BR'
 
-const speak = () => {
-    let userInputMsg = userInput.value
-    socket.emit('bntFalarPress', userInputMsg)
+if (sessionStorage.getItem('userName')) { userName.value = sessionStorage.getItem('userName'); userName.disabled = true; userInput.focus() }
+
+const speak = (userInputMsg = [userInput.value], emit = true) => {
+    if (emit) socket.emit('bntFalarPress', userInputMsg, userName.value)
     let voices = synth.getVoices();
     let msg = new SpeechSynthesisUtterance()
     msg.rate = 1;
@@ -40,7 +42,7 @@ const genDialog = (userInputMsgSocket, socketId, userOwn) => {
     let dialogDescription = document.createElement('p')
     dialogDescription.classList.add('dialogDescription')
     dialogDescription.textContent = userInputMsgSocket
-    if (userInputMsgSocket === '') { dialogDescription.style.color = 'gray'; dialogDescription.textContent = 'Sem Conteúdo' }
+    if (userInputMsgSocket === '' || String(userInputMsgSocket).length < 1) { dialogDescription.style.color = 'gray'; dialogDescription.textContent = 'Sem Conteúdo' }
 
     dialogDiv.appendChild(dialogTitle).appendChild(dialogDescription)
 
@@ -55,10 +57,35 @@ const genDialog = (userInputMsgSocket, socketId, userOwn) => {
 }
 
 socket.on('bntFalarPress', (userInputMsgSocket, socketId) => {
-
     genDialog(userInputMsgSocket, socketId)
 })
 
-bntSpeak.addEventListener('click', () => { speak(); genDialog(userInput.value, 'Você', true) });
-userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { speak(); genDialog(userInput.value, 'Você', true) } });
+const setToSessionStorageAndFocusInput = (input) => {
+    if (userName.value !== '' && String(userName.value).trim().length > 0) { sessionStorage.setItem('userName', userName.value); input.focus(); }
+}
+
+bntSpeak.addEventListener('click', () => {
+    if (userName.value !== '' && String(userName.value).trim().length > 0) {
+        speak();
+        genDialog(userInput.value, 'Você', true)
+        etToSessionStorageAndFocusInput(userInput)
+    } else {
+        speak('Preencha seu nome primeiro', false)
+    }
+});
+
+userInput.addEventListener('keypress', (e) => {
+    if (userName.value !== '' && String(userName.value).trim().length > 0) {
+        if (e.key === 'Enter') {
+            userInput.focus();
+            setToSessionStorageAndFocusInput(userInput)
+            speak();
+            genDialog(userInput.value, 'Você', true)
+        }
+    } else {
+        speak('Preencha seu nome primeiro', false)
+    }
+});
+
+userName.addEventListener('keypress', (e) => { if (e.key === 'Enter') { setToSessionStorageAndFocusInput(userInput) } })
 document.addEventListener('keypress', (e) => { if (e.key === '\x1C' || (e.code === 'IntlBackslash' && e.ctrlKey === true)) { synth.cancel() } })

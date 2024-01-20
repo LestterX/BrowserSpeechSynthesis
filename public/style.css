@@ -18,7 +18,7 @@ main {
 }
 
 main .images>img {
-    width: 250px;
+    width: 200px;
     height: auto;
     margin-bottom: 60px;
     animation-name: easeinEaseout;
@@ -57,19 +57,30 @@ main .images>img {
     cursor: pointer;
 }
 
+.userName {
+    height: 30px;
+    width: 230px;
+    border-radius: 5px;
+}
+
 .guide {
     width: 80%;
     text-align: left;
     margin-top: 20px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .guide>article {
     text-align: center;
     margin-top: 20px;
 }
-.guide>p>span{
+
+.guide>p>span {
     font-size: 1rem;
+}
+
+.guide>article>p {
+    margin: 5px 0;
 }
 
 .guide>article>p>span {

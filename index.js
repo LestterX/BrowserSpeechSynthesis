@@ -18,9 +18,10 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {});
 
 io.on("connection", (socket) => {
-    socket.on('bntFalarPress', (userInputMsg) => {
-        console.log(`[User-${socket.id}] disse: \n${userInputMsg}`);
-        socket.broadcast.emit('bntFalarPress', userInputMsg, socket.id)
+    socket.on('bntFalarPress', (userInputMsg, userName) => {
+        console.log(userInputMsg, ' user');
+        console.log(`[User-${userName}] disse: \n${userInputMsg}`);
+        socket.broadcast.emit('bntFalarPress', userInputMsg, userName)
     })
 });
 
