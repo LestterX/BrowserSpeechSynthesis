@@ -4,8 +4,10 @@ const socket = io()
 const userInput = document.querySelector('.userInput');
 const userName = document.querySelector('.userName');
 const bntSpeak = document.querySelector('.bntSpeak');
+const userCounter = document.querySelector('.userCounter .actCounter')
 const synth = window.speechSynthesis;
 const language = 'pt-BR'
+
 
 if (sessionStorage.getItem('userName')) { userName.value = sessionStorage.getItem('userName'); userName.disabled = true; userInput.focus() }
 
@@ -36,7 +38,7 @@ const genDialog = (userInputMsgSocket, socketId, userOwn) => {
 
     let dialogTitle = document.createElement('p')
     dialogTitle.classList.add('dialogTitle')
-    dialogTitle.textContent = `[USER-${socketId}] DISSE`
+    dialogTitle.textContent = `User-[${socketId}]`
     if (userOwn) { dialogTitle.style.color = 'red' }
 
     let dialogDescription = document.createElement('p')

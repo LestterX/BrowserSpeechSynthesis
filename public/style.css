@@ -8,6 +8,13 @@ body {
     position: relative;
 }
 
+.userCounter {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-size: 1.2rem;
+}
+
 main {
     display: flex;
     flex-direction: column;
