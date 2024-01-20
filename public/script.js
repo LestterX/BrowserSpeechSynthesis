@@ -8,6 +8,8 @@ const userCounter = document.querySelector('.userCounter .actCounter')
 const synth = window.speechSynthesis;
 const language = 'pt-BR'
 
+socket.on('userEnter', usersCounter => { userCounter.innerHTML = usersCounter })
+socket.on('userOut', usersCounter => { userCounter.innerHTML = usersCounter })
 
 if (sessionStorage.getItem('userName')) { userName.value = sessionStorage.getItem('userName'); userName.disabled = true; userInput.focus() }
 

@@ -17,7 +17,16 @@ app.use(routes)
 const httpServer = createServer(app);
 const io = new Server(httpServer, {});
 
+let usersCounter = 0
+
 io.on("connection", (socket) => {
+    socket.on('disconnect', () => {
+        console.log('Desconnected: ', socket.id);
+        usersCounter = usersCounter - 1
+        io.emit('userOut', usersCounter)
+    })
+    usersCounter = usersCounter + 1
+    io.emit('userEnter', usersCounter)
     socket.on('bntFalarPress', (userInputMsg, userName) => {
         console.log(userInputMsg, ' user');
         console.log(`[User-${userName}] disse: \n${userInputMsg}`);
@@ -25,4 +34,5 @@ io.on("connection", (socket) => {
     })
 });
 
-httpServer.listen(3350, () => { console.log('Server running on port: 3350'); });
+
+httpServer.listen(3350, () => { console.log('Server running on: http://localhost:3350'); });
