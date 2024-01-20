@@ -87,6 +87,8 @@ userInput.addEventListener('keypress', (e) => {
         speak('Preencha seu nome primeiro', false)
     }
 });
+userInput.addEventListener('click', (e) => { window.scrollTo(0, 0) })
 
 userName.addEventListener('keypress', (e) => { if (e.key === 'Enter') { setToSessionStorage(userInput); userInput.focus(); } })
+
 document.addEventListener('keypress', (e) => { if (e.key === '\x1C' || (e.code === 'IntlBackslash' && e.ctrlKey === true)) { synth.cancel() } })
